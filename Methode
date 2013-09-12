@@ -1,0 +1,1 @@
+il faut ajouter dans properties du projet les java build path avec add external jar et selectionner les jar du client dans jboss 6
