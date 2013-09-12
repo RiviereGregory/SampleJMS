@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<client>
+	<personne>
+		<nom>River</nom>
+		<prenom>Greg</prenom>
+	</personne>
+	<personne>
+		<nom>Paul</nom>
+		<prenom>ET</prenom>
+	</personne>
+	<personne>
+		<nom>Sky</nom>
+		<prenom>Luck</prenom>
+	</personne>
+</client>
