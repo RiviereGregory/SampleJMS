@@ -11,6 +11,8 @@ import javax.jms.QueueSender;
 import javax.jms.QueueSession;
 import javax.jms.TextMessage;
 import javax.naming.InitialContext;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.Marshaller;
 
 import fr.treeptik.samplejms.xml.Client;
 import fr.treeptik.samplejms.xml.Personne;
@@ -31,17 +33,8 @@ public class Producteur {
 		// Objet qui permet d'envoyer les messages
 		QueueSender sender = session.createSender(queue);
 
-		// Envoie de message texte ou xml
-		// TextMessage message = session.createTextMessage("Hello JMS");
-		// sender.send(message);
-
-		// Produit produit = new Produit(1, "Produit 1", "Super Produit 1");
-		// Envoie de message Objet serialisable
-		// ObjectMessage message = session.createObjectMessage(produit);
-		// sender.send(message);
-
 		// Pour l'envoie de fichier xml
-		// JAXBContext jaxbContext = JAXBContext.newInstance("fr.treeptik.samplejms.xml");
+		JAXBContext jaxbContext = JAXBContext.newInstance("fr.treeptik.samplejms.xml");
 
 		Client client = new Client();
 		Personne personne = new Personne();
@@ -57,17 +50,12 @@ public class Producteur {
 		personne.setPrenom("Luck");
 		client.getPersonne().add(personne);
 		// Création du fichier client
-		// Marshaller marshaller = jaxbContext.createMarshaller();
-		// marshaller.marshal(client, new File("client.xml"));
+		Marshaller marshaller = jaxbContext.createMarshaller();
+		marshaller.marshal(client, new File("client.xml"));
 
-		// Lecture du fichier client
-		// Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
-		// Client newClient = (Client) unmarshaller.unmarshal(new File("client.xml"));
-		// System.out.println(newClient.getPersonne().size());
-
-		File fileEcriture = new File("client.xml");
+		File fileLecture = new File("client.xml");
 		StringBuffer line = new StringBuffer();
-		BufferedReader bufferedReader = new BufferedReader(new FileReader(fileEcriture));
+		BufferedReader bufferedReader = new BufferedReader(new FileReader(fileLecture));
 		while (bufferedReader.ready()) {
 			line.append(bufferedReader.readLine());
 		}
