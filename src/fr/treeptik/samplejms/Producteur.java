@@ -1,11 +1,11 @@
 package fr.treeptik.samplejms;
 
+import javax.jms.ObjectMessage;
 import javax.jms.Queue;
 import javax.jms.QueueConnection;
 import javax.jms.QueueConnectionFactory;
 import javax.jms.QueueSender;
 import javax.jms.QueueSession;
-import javax.jms.TextMessage;
 import javax.naming.InitialContext;
 
 public class Producteur {
@@ -25,13 +25,14 @@ public class Producteur {
 		QueueSender sender = session.createSender(queue);
 
 		// Envoie de message texte ou xml
-		TextMessage message = session.createTextMessage("Hello JMS");
-		sender.send(message);
+		// TextMessage message = session.createTextMessage("Hello JMS");
+		// sender.send(message);
+
+		Produit produit = new Produit(1, "Produit 1", "Super Produit 1");
 
 		// Envoie de message Objet serialisable
-		// ObjectMessage message = session.createObjectMessage(new Message("JMS MEssage",
-		// "Detail message"));
-		// sender.send(message);
+		ObjectMessage message = session.createObjectMessage(produit);
+		sender.send(message);
 
 		session.close();
 		connection.close();
